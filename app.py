@@ -12,8 +12,8 @@ CORS(app)
 
 # --- Configuración de PostgreSQL (Render) ---
 # Conexión a la base de datos desplegada en Render
-# (Esta es la línea que cambié)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ecodev_db_user:VjebHDbOFHtVjj0e42WOi78Wem9yJ0k2@dpg-d48vo8l6pnbc73doaqb8-a.oregon-postgres.render.com/ecodev_db'
+# (Esta es la línea que cambié. Nota el "?sslmode=require" al final)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ecodev_db_user:VjebHDbOFHtVjj0e42WOi78Wem9yJ0k2@dpg-d48vo8l6pnbc73doaqb8-a.oregon-postgres.render.com/ecodev_db?sslmode=require'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -546,4 +546,7 @@ if __name__ == '__main__':
             db.session.commit()
             print("Proyecto 'Proyecto Demo' creado con ID 1.")
             
-    app.run(debug=True, port=5001)
+    # --- Modificación para Render ---
+    # Render necesita que la app corra en 0.0.0.0 y en el puerto que él asigne
+    port = int(os.environ.get("PORT", 5001))
+    app.run(debug=False, host='0.0.0.0', port=port)
