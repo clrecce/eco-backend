@@ -10,9 +10,10 @@ from codecarbon import EmissionsTracker
 app = Flask(__name__)
 CORS(app)
 
-# --- Configuración de MySQL (XAMPP) ---
-# Usa la base de datos 'ecodev_db' que creaste
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/ecodev_db'
+# --- Configuración de PostgreSQL (Render) ---
+# Conexión a la base de datos desplegada en Render
+# (Esta es la línea que cambié)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ecodev_db_user:VjebHDbOFHtVjj0e42WOi78Wem9yJ0k2@dpg-d48vo8l6pnbc73doaqb8-a.oregon-postgres.render.com/ecodev_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
